@@ -8,13 +8,20 @@ import {
   QUIZ_DIFFICULTY,
   QUIZ_TYPE,
   AnswerState,
+  QuizType,
 } from 'utils/constants';
+import LoadingBar from 'components/LoadingBar';
 import QuizBox from './QuizBox';
 import QuizResult from './QuizResult';
 
+interface QuizResult {
+  response_code?: number;
+  results?: QuizType[];
+}
+
 const Quiz = () => {
   const dispatch = useDispatch();
-  const quizList: any = useSelector(quizListSelector);
+  const quizList: QuizResult | any = useSelector(quizListSelector);
   const [quizNum, setQuizNum] = useState(0);
   const [answer, setAnswer] = useState(AnswerState.NoAnswer);
   const [answers, setAnswers] = useState([false]);
@@ -55,7 +62,7 @@ const Quiz = () => {
     <>
       {quizNum < QUIZ_AMOUNT ? (
         <QuizBox
-          quizzes={quizList.results}
+          quiz={quizList.results[quizNum]}
           quizNum={quizNum}
           score={score}
           answer={answer}
@@ -71,7 +78,7 @@ const Quiz = () => {
       )}
     </>
   ) : (
-    <div>Waiting</div>
+    <LoadingBar open={quizList === null} />
   );
 };
 
