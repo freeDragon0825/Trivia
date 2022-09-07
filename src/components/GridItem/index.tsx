@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Grid } from '@mui/material';
 
-const GridItem = (props: any) => {
+const GridItem = ({ ...props }) => {
   return <Grid item {...props} />;
 };
 
