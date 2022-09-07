@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Typography, Collapse, Alert } from '@mui/material';
 
@@ -7,10 +6,23 @@ import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
 import { QUIZ_AMOUNT, AnswerState } from 'utils/constants';
 
+type Quiz = {
+  category: string;
+  question: string;
+};
 
-export default function QuizBox({ ...props }): JSX.Element {
+interface Props {
+  quizzes: Quiz[];
+  quizNum: number;
+  score: number;
+  isAnswered: AnswerState;
+  handleCheckClick: (answer: string) => void;
+  handleNextClick: () => void;
+}
+
+export default function QuizBox(props: Props): JSX.Element {
   const {
-    quizList,
+    quizzes,
     quizNum,
     score,
     isAnswered,
@@ -21,7 +33,7 @@ export default function QuizBox({ ...props }): JSX.Element {
     <GridContainer>
       <GridItem>
         <Typography variant="h4" align="center">
-          {quizList.results[quizNum].category}
+          {quizzes[quizNum].category}
         </Typography>
         <Typography variant="h6" align="center">
           Your Score: {score}
@@ -34,7 +46,7 @@ export default function QuizBox({ ...props }): JSX.Element {
         <Typography
           variant="body1"
           dangerouslySetInnerHTML={{
-            __html: quizList.results[quizNum].question,
+            __html: quizzes[quizNum].question,
           }}
         />
       </GridItem>

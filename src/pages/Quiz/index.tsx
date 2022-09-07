@@ -50,7 +50,7 @@ const Quiz = () => {
     <>
       {quizNum < QUIZ_AMOUNT ? (
         <QuizBox
-          quizList={quizList}
+          quizzes={quizList.results}
           quizNum={quizNum}
           score={score}
           isAnswered={isAnswered}
