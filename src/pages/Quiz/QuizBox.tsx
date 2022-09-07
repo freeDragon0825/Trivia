@@ -1,9 +1,10 @@
 import React from 'react';
-import { Typography, Collapse, Alert } from '@mui/material';
+import { Typography } from '@mui/material';
 
-import CstmBtn from 'components/CstmBtn';
 import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
+import CstmBtn from 'components/CstmBtn';
+import AnswerAlert from 'components/AnswerAlert';
 import { QUIZ_AMOUNT, AnswerState } from 'utils/constants';
 
 type Quiz = {
@@ -15,7 +16,7 @@ interface Props {
   quizzes: Quiz[];
   quizNum: number;
   score: number;
-  isAnswered: AnswerState;
+  answer: AnswerState;
   handleCheckClick: (answer: string) => void;
   handleNextClick: () => void;
 }
@@ -25,7 +26,7 @@ export default function QuizBox(props: Props): JSX.Element {
     quizzes,
     quizNum,
     score,
-    isAnswered,
+    answer,
     handleCheckClick,
     handleNextClick,
   } = props;
@@ -51,18 +52,7 @@ export default function QuizBox(props: Props): JSX.Element {
         />
       </GridItem>
       <GridItem alignItems="center" display="flex" flexDirection="column">
-        <Collapse
-          sx={{ width: '100%' }}
-          in={isAnswered !== AnswerState.NoAnswer}
-        >
-          <Alert
-            sx={{ mb: 2 }}
-            severity={isAnswered === AnswerState.Correct ? 'success' : 'error'}
-          >
-            Your answer is{' '}
-            {isAnswered === AnswerState.Correct ? 'correct!' : 'incorrect!'}
-          </Alert>
-        </Collapse>
+        <AnswerAlert answer={answer} />
         <CstmBtn
           variant="outlined"
           onClick={() => {
@@ -79,7 +69,7 @@ export default function QuizBox(props: Props): JSX.Element {
         >
           No
         </CstmBtn>
-        {isAnswered ? <CstmBtn onClick={handleNextClick}>Next</CstmBtn> : null}
+        {answer ? <CstmBtn onClick={handleNextClick}>Next</CstmBtn> : null}
       </GridItem>
     </GridContainer>
   );
