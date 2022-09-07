@@ -5,15 +5,10 @@ import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
 import CstmBtn from 'components/CstmBtn';
 import AnswerAlert from 'components/AnswerAlert';
-import { QUIZ_AMOUNT, AnswerState } from 'utils/constants';
-
-type Quiz = {
-  category: string;
-  question: string;
-};
+import { QUIZ_AMOUNT, AnswerState, QuizType } from 'utils/constants';
 
 interface Props {
-  quizzes: Quiz[];
+  quiz: QuizType;
   quizNum: number;
   score: number;
   answer: AnswerState;
@@ -23,7 +18,7 @@ interface Props {
 
 export default function QuizBox(props: Props): JSX.Element {
   const {
-    quizzes,
+    quiz,
     quizNum,
     score,
     answer,
@@ -34,7 +29,7 @@ export default function QuizBox(props: Props): JSX.Element {
     <GridContainer>
       <GridItem>
         <Typography variant="h4" align="center">
-          {quizzes[quizNum].category}
+          {quiz.category}
         </Typography>
         <Typography variant="h6" align="center">
           Your Score: {score}
@@ -47,7 +42,7 @@ export default function QuizBox(props: Props): JSX.Element {
         <Typography
           variant="body1"
           dangerouslySetInnerHTML={{
-            __html: quizzes[quizNum].question,
+            __html: quiz.question,
           }}
         />
       </GridItem>

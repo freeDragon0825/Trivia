@@ -5,15 +5,11 @@ import {
   Close as IncorrectIcon,
 } from '@mui/icons-material';
 
-
-type Quiz = {
-  question: string;
-  correct_answer: string;
-};
+import { QuizType } from 'utils/constants'
 
 interface Props {
   answer: boolean;
-  quiz: Quiz;
+  quiz: QuizType;
 }
 
 export default function QuizAnswerItem(props: Props) {

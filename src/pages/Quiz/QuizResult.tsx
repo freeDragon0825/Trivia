@@ -5,17 +5,11 @@ import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
 import CstmBtn from 'components/CstmBtn';
 import QuizAnswerItem from 'components/QuizAnswerItem';
-import { QUIZ_AMOUNT } from 'utils/constants';
-
-type Quiz = {
-  category: string;
-  question: string;
-  correct_answer: string;
-};
+import { QUIZ_AMOUNT, QuizType } from 'utils/constants';
 
 interface Props {
   score: number;
-  quizzes: Quiz[];
+  quizzes: QuizType[];
   answers: boolean[];
 }
 
