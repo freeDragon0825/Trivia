@@ -13,14 +13,20 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.184",
     "@types/node": "^16.11.57",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "@types/redux-actions": "^2.6.2",
     "@types/redux-saga": "^0.10.5",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
     "axios": "^0.27.2",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react": "^7.31.7",
     "lodash": "^4.17.21",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
@@ -34,8 +40,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start":"react-scripts start",
-    "postinstall":"tsc",
+    "start": "react-scripts start",
+    "postinstall": "tsc",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -60,13 +66,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.184",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
-    "eslint": "^8.23.0",
-    "eslint-plugin-react": "^7.31.7",
-    "prettier": "2.7.1"
   }
 }
