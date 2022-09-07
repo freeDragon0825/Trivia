@@ -1,11 +1,5 @@
 import fp from 'lodash/fp'
 
-export const slugify = text =>
-  text
-    .toLowerCase()
-    .replace(/[^\w ]+/g, '')
-    .replace(/ +/g, '-')
-
 export const prettifyMethod = fp.toLower
 
 export const deepSetWith = (state, path, data) => {
