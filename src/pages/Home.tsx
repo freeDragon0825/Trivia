@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Button } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
+import CstmBtn from 'components/CstmBtn';
 
 const Home = () => {
   return (
@@ -24,9 +25,9 @@ const Home = () => {
           </Typography>
         </GridItem>
         <GridItem alignItems="center" display="flex" flexDirection="column">
-          <Button variant="contained" size="large" href="quiz">
+          <CstmBtn href="quiz">
             BEGIN
-          </Button>
+          </CstmBtn>
         </GridItem>
       </GridContainer>
     </>

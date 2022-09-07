@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert, Button, Collapse, Typography } from '@mui/material';
+import { Alert, Collapse, Typography } from '@mui/material';
 
 import { quizListSelector, getQuizList } from 'store/modules/quiz';
 import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
+import CstmBtn from 'components/CstmBtn';
 import { QUIZ_AMOUNT, QUIZ_DIFFICULTY, QUIZ_TYPE } from 'utils/constants';
 
 enum AnswerState {
@@ -86,35 +87,24 @@ const Quiz = () => {
                 {isAnswered === AnswerState.Correct ? 'correct!' : 'incorrect!'}
               </Alert>
             </Collapse>
-            <Button
-              sx={{ mb: '10px' }}
-              fullWidth
+            <CstmBtn
               variant="outlined"
               onClick={() => {
                 handleCheckClick('True');
               }}
             >
               Yes
-            </Button>
-            <Button
-              sx={{ mb: '10px' }}
-              fullWidth
+            </CstmBtn>
+            <CstmBtn
               variant="outlined"
               onClick={() => {
                 handleCheckClick('False');
               }}
             >
               No
-            </Button>
+            </CstmBtn>
             {isAnswered ? (
-              <Button
-                sx={{ mb: '10px' }}
-                fullWidth
-                variant="contained"
-                onClick={handleNextClick}
-              >
-                Next
-              </Button>
+              <CstmBtn onClick={handleNextClick}>Next</CstmBtn>
             ) : null}
           </GridItem>
         </GridContainer>
@@ -126,9 +116,7 @@ const Quiz = () => {
             </Typography>
           </GridItem>
           <GridItem alignItems="center" display="flex" flexDirection="column">
-            <Button variant="contained" href="/">
-              PLAY AGAIN?
-            </Button>
+            <CstmBtn href="/">PLAY AGAIN?</CstmBtn>
           </GridItem>
         </GridContainer>
       )}
