@@ -16,7 +16,8 @@ const Quiz = () => {
   const dispatch = useDispatch();
   const quizList: any = useSelector(quizListSelector);
   const [quizNum, setQuizNum] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(AnswerState.NoAnswer);
+  const [answer, setAnswer] = useState(AnswerState.NoAnswer);
+  const [answers, setAnswers] = useState([false]);
   const [score, setScore] = useState(0);
 
   useEffect(() => {
@@ -34,15 +35,19 @@ const Quiz = () => {
   const handleCheckClick = useCallback(
     (answer: string) => {
       if (answer === quizList.results[quizNum].correct_answer) {
-        setIsAnswered(AnswerState.Correct);
+        setAnswer(AnswerState.Correct);
+        setAnswers(prevState => {
+          prevState[quizNum] = true;
+          return [...prevState];
+        });
         setScore(prevState => prevState + 1);
-      } else setIsAnswered(AnswerState.Incorrect);
+      } else setAnswer(AnswerState.Incorrect);
     },
     [quizList, quizNum],
   );
 
   const handleNextClick = useCallback(() => {
-    setIsAnswered(AnswerState.NoAnswer);
+    setAnswer(AnswerState.NoAnswer);
     setQuizNum(prevState => prevState + 1);
   }, []);
 
@@ -53,12 +58,16 @@ const Quiz = () => {
           quizzes={quizList.results}
           quizNum={quizNum}
           score={score}
-          isAnswered={isAnswered}
+          answer={answer}
           handleCheckClick={handleCheckClick}
           handleNextClick={handleNextClick}
         />
       ) : (
-        <QuizResult score={score} />
+        <QuizResult
+          score={score}
+          quizzes={quizList.results}
+          answers={answers}
+        />
       )}
     </>
   ) : (

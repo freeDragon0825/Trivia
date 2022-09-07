@@ -1,17 +1,26 @@
-import React from 'react'
-import { Typography } from '@mui/material'
+import React from 'react';
+import { Typography } from '@mui/material';
 
-import CstmBtn from 'components/CstmBtn'
-import GridContainer from 'components/GridContainer'
-import GridItem from 'components/GridItem'
-import { QUIZ_AMOUNT } from 'utils/constants'
+import GridContainer from 'components/GridContainer';
+import GridItem from 'components/GridItem';
+import CstmBtn from 'components/CstmBtn';
+import QuizAnswerItem from 'components/QuizAnswerItem';
+import { QUIZ_AMOUNT } from 'utils/constants';
+
+type Quiz = {
+  category: string;
+  question: string;
+  correct_answer: string;
+};
 
 interface Props {
-  score: number
+  score: number;
+  quizzes: Quiz[];
+  answers: boolean[];
 }
 
 export default function QuizResult(props: Props) {
-  const { score } = props;
+  const { score, quizzes, answers } = props;
 
   return (
     <GridContainer>
@@ -20,9 +29,14 @@ export default function QuizResult(props: Props) {
           You scored {score} / {QUIZ_AMOUNT}
         </Typography>
       </GridItem>
+      <GridItem>
+        {quizzes.map((quiz, index) => (
+          <QuizAnswerItem key={index} answer={answers[index]} quiz={quiz} />
+        ))}
+      </GridItem>
       <GridItem alignItems="center" display="flex" flexDirection="column">
         <CstmBtn href="/">PLAY AGAIN?</CstmBtn>
       </GridItem>
     </GridContainer>
-  )
+  );
 }
