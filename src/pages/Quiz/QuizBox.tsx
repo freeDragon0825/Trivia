@@ -53,6 +53,7 @@ export default function QuizBox(props: Props): JSX.Element {
           onClick={() => {
             handleCheckClick('True');
           }}
+          disabled={answer !== AnswerState.NoAnswer}
         >
           Yes
         </CstmBtn>
@@ -61,6 +62,7 @@ export default function QuizBox(props: Props): JSX.Element {
           onClick={() => {
             handleCheckClick('False');
           }}
+          disabled={answer !== AnswerState.NoAnswer}
         >
           No
         </CstmBtn>
