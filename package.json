@@ -25,6 +25,7 @@
     "axios": "^0.27.2",
     "eslint": "^8.23.0",
     "eslint-plugin-react": "^7.31.7",
+    "husky": "^8.0.1",
     "lodash": "^4.17.21",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
@@ -41,10 +42,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "postinstall": "tsc",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "tsc",
+    "prepare": "husky install"
   },
   "engines": {
     "node": "16.17.0"
