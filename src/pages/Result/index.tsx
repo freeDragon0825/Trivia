@@ -1,22 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 
 import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
 import CstmBtn from 'components/CstmBtn';
 import QuizAnswerItem from 'components/QuizAnswerItem';
+import { quizListSelector, answerListSelector } from 'store';
 import { QUIZ_AMOUNT, QuizType } from 'utils/constants';
+import LoadingBar from 'components/LoadingBar';
 
-interface Props {
-  score: number;
-  quizzes: QuizType[];
-  answers: boolean[];
-}
+export default function Result() {
+  const quizList: any = useSelector(quizListSelector);
+  const answers: any = useSelector(answerListSelector);
+  let score = 0;
+  answers?.forEach((answer: boolean) => (answer === true ? ++score : score));
 
-export default function QuizResult(props: Props) {
-  const { score, quizzes, answers } = props;
-
-  return (
+  return answers ? (
     <GridContainer>
       <GridItem>
         <Typography variant="h4" align="center">
@@ -24,7 +25,7 @@ export default function QuizResult(props: Props) {
         </Typography>
       </GridItem>
       <GridItem>
-        {quizzes.map((quiz, index) => (
+        {quizList.results.map((quiz: QuizType, index: number) => (
           <QuizAnswerItem key={index} answer={answers[index]} quiz={quiz} />
         ))}
       </GridItem>
@@ -32,5 +33,7 @@ export default function QuizResult(props: Props) {
         <CstmBtn href="/">PLAY AGAIN?</CstmBtn>
       </GridItem>
     </GridContainer>
+  ) : (
+    <LoadingBar open={answers === null} />
   );
 }

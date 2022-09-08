@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
-import { quizListSelector, getQuizList } from 'store/modules/quiz';
+import { quizListSelector, getQuizList, setAnswerList } from 'store';
 import {
   QUIZ_AMOUNT,
   QUIZ_DIFFICULTY,
@@ -11,10 +12,10 @@ import {
 } from 'utils/constants';
 import LoadingBar from 'components/LoadingBar';
 import QuizBox from './QuizBox';
-import QuizResult from './QuizResult';
 
 const Quiz = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const quizList: any = useSelector(quizListSelector);
   const [quizNum, setQuizNum] = useState(0);
   const [answer, setAnswer] = useState(AnswerState.NoAnswer);
@@ -48,29 +49,28 @@ const Quiz = () => {
   );
 
   const handleNextClick = useCallback(() => {
-    setAnswer(AnswerState.NoAnswer);
-    setQuizNum(prevState => prevState + 1);
-  }, []);
+    if (quizNum < QUIZ_AMOUNT - 1) {
+      setAnswer(AnswerState.NoAnswer);
+      setQuizNum(prevState => prevState + 1);
+    } else {
+      dispatch(
+        setAnswerList({
+          answers: answers,
+        }),
+      );
+      navigate('/result');
+    }
+  }, [quizNum, answers]);
 
-  return quizList ? (
-    <>
-      {quizNum < QUIZ_AMOUNT ? (
-        <QuizBox
-          quiz={quizList.results[quizNum]}
-          quizNum={quizNum}
-          score={score}
-          answer={answer}
-          handleCheckClick={handleCheckClick}
-          handleNextClick={handleNextClick}
-        />
-      ) : (
-        <QuizResult
-          score={score}
-          quizzes={quizList.results}
-          answers={answers}
-        />
-      )}
-    </>
+  return quizList && quizNum < QUIZ_AMOUNT ? (
+    <QuizBox
+      quiz={quizList.results[quizNum]}
+      quizNum={quizNum}
+      score={score}
+      answer={answer}
+      handleCheckClick={handleCheckClick}
+      handleNextClick={handleNextClick}
+    />
   ) : (
     <LoadingBar open={quizList === null} />
   );
