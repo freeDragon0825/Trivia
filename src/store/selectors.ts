@@ -8,6 +8,7 @@ const createDataSelector = (selectorKey: string, defaultVal = null) =>
     fp.get(['data']),
   );
 
+export const playSelector = createDataSelector('play');
 export const loadingSelector = createDataSelector('loading');
 export const quizListSelector = createDataSelector('quizList');
 export const answerListSelector = createDataSelector('answerList');

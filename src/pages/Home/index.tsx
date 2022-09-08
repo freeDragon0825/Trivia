@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 
+import { setPlay } from 'store';
 import GridContainer from 'components/GridContainer';
 import GridItem from 'components/GridItem';
 import CstmBtn from 'components/CstmBtn';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setPlay({ play: false }));
+  }, []);
+
+  const handlePlayClick = useCallback(() => {
+    dispatch(setPlay({ play: true }));
+    navigate('/quiz');
+  }, []);
+
   return (
     <>
       <GridContainer>
@@ -25,9 +40,7 @@ const Home = () => {
           </Typography>
         </GridItem>
         <GridItem alignItems="center" display="flex" flexDirection="column">
-          <CstmBtn href="quiz">
-            BEGIN
-          </CstmBtn>
+          <CstmBtn onClick={handlePlayClick}>BEGIN</CstmBtn>
         </GridItem>
       </GridContainer>
     </>

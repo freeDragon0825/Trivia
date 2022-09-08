@@ -10,7 +10,6 @@ import {
   QUIZ_TYPE,
   AnswerState,
 } from 'utils/constants';
-import LoadingBar from 'components/LoadingBar';
 import QuizBox from './QuizBox';
 
 const Quiz = () => {
@@ -23,15 +22,16 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    dispatch(
-      getQuizList({
-        params: {
-          amount: QUIZ_AMOUNT,
-          difficulty: QUIZ_DIFFICULTY,
-          type: QUIZ_TYPE,
-        },
-      }),
-    );
+    !quizList &&
+      dispatch(
+        getQuizList({
+          params: {
+            amount: QUIZ_AMOUNT,
+            difficulty: QUIZ_DIFFICULTY,
+            type: QUIZ_TYPE,
+          },
+        }),
+      );
   }, []);
 
   const handleCheckClick = useCallback(
@@ -62,17 +62,17 @@ const Quiz = () => {
     }
   }, [quizNum, answers]);
 
-  return quizList && quizNum < QUIZ_AMOUNT ? (
-    <QuizBox
-      quiz={quizList.results[quizNum]}
-      quizNum={quizNum}
-      score={score}
-      answer={answer}
-      handleCheckClick={handleCheckClick}
-      handleNextClick={handleNextClick}
-    />
-  ) : (
-    <LoadingBar open={quizList === null} />
+  return (
+    quizList && (
+      <QuizBox
+        quiz={quizList.results[quizNum]}
+        quizNum={quizNum}
+        score={score}
+        answer={answer}
+        handleCheckClick={handleCheckClick}
+        handleNextClick={handleNextClick}
+      />
+    )
   );
 };
 

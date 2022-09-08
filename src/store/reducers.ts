@@ -4,7 +4,8 @@ import { handleActions } from 'redux-actions';
 import * as types from './types';
 
 const initialState = {
-  loading: false
+  play: false,
+  loading: false,
 };
 
 interface IAction {
@@ -12,12 +13,19 @@ interface IAction {
     selectorKey: string;
     data: object;
     loading: boolean;
+    play: boolean;
     answers: boolean[];
   };
 }
 
 const data = handleActions(
   {
+    [types.SET_PLAY]: (prevState: any, action: IAction) => {
+      const { payload } = action;
+      prevState.play = payload.play;
+      return { ...prevState };
+    },
+
     [types.SET_LOADING]: (prevState: any, action: IAction) => {
       const { payload } = action;
       prevState.loading = payload.loading;
@@ -37,12 +45,9 @@ const data = handleActions(
 
     [types.SET_ANSWER_LIST]: (prevState: any, action: IAction) => {
       const { payload } = action;
-      console.log("reducer", payload.answers)
       return {
         ...prevState,
-        answerList: [
-          ...payload.answers,
-        ],
+        answerList: [...payload.answers],
       };
     },
   },
